@@ -38,3 +38,9 @@ cartel provides Docker images for convenient access to C/C++ compiler toolchains
 * linux-x86
 * linux-x86_64
 * linux-arm
+
+# SEE ALSO
+
+* [remy](https://github.com/mcandre/remy) generates Rust application ports based on these toolchain images
+* [goxcart](https://github.com/mcandre/goxcart) generates Go application ports based on the standard Go toolchain
+* [tonixxx](https://github.com/mcandre/tonixxx) provides a more heavyweight solution using virtual machines
