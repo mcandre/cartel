@@ -1,0 +1,172 @@
+#!/bin/bash
+set -eEuo pipefail
+
+CLANG_VERSION='6.0'
+
+apt-get update
+
+apt-get install -y \
+    "clang-${CLANG_VERSION}" \
+    "lld-${CLANG_VERSION}" \
+    libyaml-cpp-dev \
+    gnupg \
+    cmake \
+    build-essential \
+    libjsoncpp-dev \
+    pkg-config \
+    git \
+    python3 \
+    python3-pip
+
+pip3 install \
+    pypeg2 \
+    toposort
+
+echo 'deb https://nuxi.nl/distfiles/cloudabi-ports/debian/ cloudabi cloudabi' >/etc/apt/sources.list.d/cloudabi.list
+
+cat <<EOF | apt-key add -
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: SKS 1.1.6
+Comment: Hostname: pgp.mit.edu
+
+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
+=uoNF
+-----END PGP PUBLIC KEY BLOCK-----
+EOF
+
+apt-get update
+
+apt-get install -y x86-64-unknown-cloudabi-cxx-runtime
+
+for target in \
+    aarch64-unknown-cloudabi \
+    armv6-unknown-cloudabi-eabihf \
+    i686-unknown-cloudabi \
+    x86_64-unknown-cloudabi; do
+
+    for tool in ar nm objdump ranlib size; do
+        ln -s "../lib/llvm-${CLANG_VERSION}/bin/llvm-${tool}" "/usr/bin/${target}-${tool}"
+    done
+
+    ln -s "../lib/llvm-${CLANG_VERSION}/bin/clang" "/usr/bin/${target}-cc"
+    ln -s "../lib/llvm-${CLANG_VERSION}/bin/clang" "/usr/bin/${target}-c++"
+    ln -s "../lib/llvm-${CLANG_VERSION}/bin/lld" "/usr/bin/${target}-ld"
+    ln -s "../../${target}" "/usr/lib/llvm-${CLANG_VERSION}/${target}"
+done
+
+git clone 'https://github.com/NuxiNL/cloudabi.git'
+
+sh -c 'cd cloudabi && install -m 444 headers/* /usr/local/include/'
+
+rm -rf cloudabi
+
+git clone 'https://github.com/NuxiNL/argdata.git'
+
+sh -c 'cd argdata && cmake . && make && make install'
+
+rm -rf argdata
+
+git clone 'https://github.com/NuxiNL/yaml2argdata.git'
+
+sh -c 'cd yaml2argdata && cp -r yaml2argdata /usr/local/include/'
+
+rm -rf yaml2argdata
+
+git clone 'https://github.com/NuxiNL/arpc.git'
+
+sh -c 'cd arpc && cmake . && make && make install'
+
+rm -rf arpc
+
+git clone 'https://github.com/NuxiNL/flower.git'
+
+sh -c 'cd flower && cmake . && make && make install'
+
+rm -rf flower
+
+git clone 'https://github.com/NuxiNL/cloudabi-utils.git'
+
+sh -c 'cd cloudabi-utils && cmake . && make && make install'
+
+rm -rf cloudabi-utils
+
+ldconfig
+
+apt-get remove -y \
+    cmake \
+    build-essential \
+    libjsoncpp-dev \
+    pkg-config \
+    git \
+    python3 \
+    python3-pip
+
+apt-get autoremove -y
+
+apt-get clean -y
+
+rm -rf /var/lib/apt/lists/*
