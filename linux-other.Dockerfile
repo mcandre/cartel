@@ -17,4 +17,5 @@ RUN apt-get update && \
         g++-powerpc64le-linux-gnu \
         g++-riscv64-linux-gnu \
         g++-s390x-linux-gnu \
+        g++-sh4-linux-gnu \
         g++-sparc64-linux-gnu

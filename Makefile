@@ -66,6 +66,9 @@ test-linux-riscv64: cartel-linux-other
 test-linux-s390x: cartel-linux-other
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-other sh -c \"cd /src && mkdir -p bin && s390x-linux-gnu-gcc -o bin/hello hello.c\""
 
+test-linux-sh4: cartel-linux-other
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-other sh -c \"cd /src && mkdir -p bin && sh4-linux-gnu-gcc -o bin/hello hello.c\""
+
 test-linux-sparc64: cartel-linux-other
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-other sh -c \"cd /src && mkdir -p bin && sparc64-linux-gnu-gcc -o bin/hello hello.c\""
 
