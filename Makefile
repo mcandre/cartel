@@ -56,7 +56,7 @@ publish-linux-alpha: cartel-linux-alpha
 publish-cloudabi: cartel-cloudabi
 	docker push mcandre/cartel:cloudabi
 
-publish: publish-linux-x86 publish-linux-x86_64 publish-linux-arm publish-cloudabi
+publish: publish-linux-x86 publish-linux-x86_64 publish-linux-arm publish-linux-alpha publish-cloudabi
 
 clean:
 	-rm -rf example/bin
