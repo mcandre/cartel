@@ -101,7 +101,7 @@ publish-linux-ppc: cartel-linux-ppc
 publish-cloudabi: cartel-cloudabi
 	docker push mcandre/cartel:cloudabi
 
-publish: publish-linux-x86 publish-linux-x86_64 publish-linux-arm publish-linux-alpha publish-linux-m68k publish-linux-mips publish-ppc publish-cloudabi
+publish: publish-linux-x86 publish-linux-x86_64 publish-linux-arm publish-linux-alpha publish-linux-m68k publish-linux-mips publish-linux-ppc publish-cloudabi
 
 clean:
 	-rm -rf example/bin
