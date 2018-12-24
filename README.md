@@ -5,7 +5,7 @@
 ```console
 $ cd example
 
-$ docker run --rm -v "$(pwd):/src" mcandre/cartel:linux-arm sh -c "cd /src && mkdir -p bin && arm-linux-gnueabi-gcc -o bin/hello hello.c"
+$ docker run --rm -v "$(pwd):/src" mcandre/cartel:linux-other sh -c "cd /src && mkdir -p bin && arm-linux-gnueabi-gcc -o bin/hello hello.c"
 
 $ objdump -s example/bin/hello | head
 

@@ -1,4 +1,4 @@
-FROM library/ubuntu:disco
-COPY setup-cloudabi.ubuntu.sh /tmp
-RUN bash /tmp/setup-cloudabi.ubuntu.sh && \
-    rm /tmp/setup-cloudabi.ubuntu.sh
+FROM library/debian:buster
+COPY setup-cloudabi.debian.sh /tmp
+RUN bash /tmp/setup-cloudabi.debian.sh && \
+    rm /tmp/setup-cloudabi.debian.sh
