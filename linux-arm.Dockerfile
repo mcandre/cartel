@@ -1,4 +1,4 @@
-FROM ubuntu:disco
+FROM library/ubuntu:disco
 RUN apt-get update && \
     apt-get install -y \
         gcc-arm-linux-gnueabi \

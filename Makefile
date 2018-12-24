@@ -50,6 +50,9 @@ publish-linux-x86_64: cartel-linux-x86_64
 publish-linux-arm: cartel-linux-arm
 	docker push mcandre/cartel:linux-arm
 
+publish-linux-alpha: cartel-linux-alpha
+	docker push mcandre/cartel:linux-alpha
+
 publish-cloudabi: cartel-cloudabi
 	docker push mcandre/cartel:cloudabi
 
