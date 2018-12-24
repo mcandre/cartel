@@ -15,6 +15,9 @@ cartel-linux-alpha: linux-alpha.Dockerfile
 cartel-linux-m68k: linux-m68k.Dockerfile
 	docker build -t mcandre/cartel:linux-m68k -f linux-m68k.Dockerfile .
 
+cartel-linux-mips: linux-mips.Dockerfile
+	docker build -t mcandre/cartel:linux-mips -f linux-mips.Dockerfile .
+
 cartel-cloudabi: cloudabi.Dockerfile setup-cloudabi.ubuntu.sh
 	docker build -t mcandre/cartel:cloudabi -f cloudabi.Dockerfile .
 
@@ -42,10 +45,22 @@ test-linux-alpha: cartel-linux-alpha
 test-linux-m68k: cartel-linux-m68k
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-m68k sh -c \"cd /src && mkdir -p bin && m68k-linux-gnu-gcc -o bin/hello hello.c\""
 
+test-linux-mips: cartel-linux-mips
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-mips sh -c \"cd /src && mkdir -p bin && mips-linux-gnu-gcc -o bin/hello hello.c\""
+
+test-linux-mipsel: cartel-linux-mips
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-mips sh -c \"cd /src && mkdir -p bin && mipsel-linux-gnu-gcc -o bin/hello hello.c\""
+
+test-linux-mips64: cartel-linux-mips
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-mips sh -c \"cd /src && mkdir -p bin && mips64-linux-gnuabi64-gcc -o bin/hello hello.c\""
+
+test-linux-mips64el: cartel-linux-mips
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-mips sh -c \"cd /src && mkdir -p bin && mips64el-linux-gnuabi64-gcc -o bin/hello hello.c\""
+
 test-cloudabi-x86_64: cartel-cloudabi example/cloudabi-stdout.yml
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:cloudabi sh -c \"cd /src && mkdir -p bin && x86_64-unknown-cloudabi-cc -o bin/hello hello.c && cloudabi-run -e bin/hello <cloudabi-stdout.yml\""
 
-test: test-linux-x86 test-linux-x86_64 test-linux-armel test-linux-armhf test-generic-armel test-linux-alpha test-linux-m68k test-cloudabi-x86_64
+test: test-linux-x86 test-linux-x86_64 test-linux-armel test-linux-armhf test-generic-armel test-linux-alpha test-linux-m68k test-linux-mips test-linux-mipsel test-linux-mips64 test-linux-mips64el test-cloudabi-x86_64
 
 publish-linux-x86: cartel-linux-x86
 	docker push mcandre/cartel:linux-x86
@@ -62,10 +77,13 @@ publish-linux-alpha: cartel-linux-alpha
 publish-linux-m68k: cartel-linux-m68k
 	docker push mcandre/cartel:linux-m68k
 
+publish-linux-mips: cartel-linux-mips
+	docker push mcandre/cartel:linux-mips
+
 publish-cloudabi: cartel-cloudabi
 	docker push mcandre/cartel:cloudabi
 
-publish: publish-linux-x86 publish-linux-x86_64 publish-linux-arm publish-linux-alpha publish-linux-m68k publish-cloudabi
+publish: publish-linux-x86 publish-linux-x86_64 publish-linux-arm publish-linux-alpha publish-linux-m68k publish-linux-mips publish-cloudabi
 
 clean:
 	-rm -rf example/bin
