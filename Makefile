@@ -6,6 +6,9 @@ cartel-debian-x86_64: debian-x86_64.Dockerfile
 cartel-debian-other: debian-other.Dockerfile
 	docker build -t mcandre/cartel:debian-other -f debian-other.Dockerfile .
 
+cartel-alpine-x86_64: alpine-x86_64.Dockerfile
+	docker build -t mcandre/cartel:alpine-x86_64 -f alpine-x86_64.Dockerfile .
+
 cartel-cloudabi: cloudabi.Dockerfile setup-cloudabi.debian.sh
 	docker build -t mcandre/cartel:cloudabi -f cloudabi.Dockerfile .
 
@@ -72,10 +75,13 @@ test-debian-sh4: cartel-debian-other
 test-debian-sparc64: cartel-debian-other
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:debian-other sh -c \"cd /src && mkdir -p bin && sparc64-linux-gnu-gcc -o bin/hello hello.c\""
 
+test-alpine-x86_64: cartel-alpine-x86_64
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:alpine-x86_64 sh -c \"cd /src && mkdir -p bin && gcc -o bin/hello hello.c && ./bin/hello\""
+
 test-cloudabi-x86_64: cartel-cloudabi example/cloudabi-stdout.yml
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:cloudabi sh -c \"cd /src && mkdir -p bin && x86_64-unknown-cloudabi-cc -o bin/hello hello.c && cloudabi-run -e bin/hello <cloudabi-stdout.yml\""
 
-test: test-debian-x86 test-debian-x86_64 test-debian-x32 test-debian-armel test-debian-armhf test-generic-armel test-debian-alpha test-debian-m68k test-debian-mips test-debian-mipsel test-debian-mips64 test-debian-mips64el test-debian-ppc test-debian-ppcspe test-debian-ppc64 test-debian-ppc64le test-debian-riscv64 test-debian-s390x test-debian-sparc64 test-cloudabi-x86_64
+test: test-debian-x86 test-debian-x86_64 test-debian-x32 test-debian-armel test-debian-armhf test-generic-armel test-debian-alpha test-debian-m68k test-debian-mips test-debian-mipsel test-debian-mips64 test-debian-mips64el test-debian-ppc test-debian-ppcspe test-debian-ppc64 test-debian-ppc64le test-debian-riscv64 test-debian-s390x test-debian-sparc64 test-alpine-x86_64 test-cloudabi-x86_64
 
 publish-debian-x86_64: cartel-debian-x86_64
 	docker push mcandre/cartel:debian-x86_64
@@ -83,10 +89,13 @@ publish-debian-x86_64: cartel-debian-x86_64
 publish-debian-other: cartel-debian-other
 	docker push mcandre/cartel:debian-other
 
+publish-alpine-x86_64: cartel-alpine-x86_64
+	docker push mcandre/cartel:alpine-x86_64
+
 publish-cloudabi: cartel-cloudabi
 	docker push mcandre/cartel:cloudabi
 
-publish: publish-debian-x86_64 publish-debian-other publish-cloudabi
+publish: publish-debian-x86_64 publish-debian-other publish-alpine-x86_64 publish-cloudabi
 
 clean:
 	-rm -rf example/bin
