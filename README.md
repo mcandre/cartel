@@ -5,7 +5,7 @@
 ```console
 $ cd example
 
-$ docker run --rm -v "$(pwd):/src" mcandre/cartel:linux-other sh -c "cd /src && mkdir -p bin && arm-linux-gnueabi-gcc -o bin/hello hello.c"
+$ docker run --rm -v "$(pwd):/src" mcandre/cartel:debian-other sh -c "cd /src && mkdir -p bin && arm-linux-gnueabi-gcc -o bin/hello hello.c"
 
 $ objdump -s example/bin/hello | head
 
@@ -39,27 +39,27 @@ https://hub.docker.com/r/mcandre/cartel
 
 # TARGETS
 
-* linux-x86
-* linux-x86_64
-* linux-x32
-* linux-armel
-* linux-armhf
-* linux-aarch64
+* linux-glibc-2.28-x86
+* linux-glibc-2.28-x86_64
+* linux-glibc-2.28-x32
+* linux-glibc-2.28-armel
+* linux-glibc-2.28-armhf
+* linux-glibc-2.28-aarch64
 * generic-armel
-* linux-alpha
-* linux-m68k
-* linux-mips
-* linux-mipsel
-* linux-mips64
-* linux-mips64el
-* linux-ppc
-* linux-ppcspe
-* linux-ppc64
-* linux-ppc64le
-* linux-riscv64
-* linux-s390x
-* linux-sh4
-* linux-sparc64
+* linux-glibc-2.28-alpha
+* linux-glibc-2.28-m68k
+* linux-glibc-2.28-mips
+* linux-glibc-2.28-mipsel
+* linux-glibc-2.28-mips64
+* linux-glibc-2.28-mips64el
+* linux-glibc-2.28-ppc
+* linux-glibc-2.28-ppcspe
+* linux-glibc-2.28-ppc64
+* linux-glibc-2.28-ppc64le
+* linux-glibc-2.28-riscv64
+* linux-glibc-2.28-s390x
+* linux-glibc-2.28-sh4
+* linux-glibc-2.28-sparc64
 * cloudabi-x86_64
 
 # SEE ALSO
