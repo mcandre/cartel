@@ -42,6 +42,7 @@ cartel provides Docker images for convenient access to C/C++ compiler toolchains
 * linux-aarch64
 * generic-armel
 * linux-alpha
+* linux-m68k
 * cloudabi-x86_64
 
 # SEE ALSO
