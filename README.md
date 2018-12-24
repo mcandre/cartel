@@ -39,13 +39,14 @@ https://hub.docker.com/r/mcandre/cartel
 
 # TARGETS
 
+* cloudabi-x86_64
+* generic-armel
 * linux-glibc-2.28-x86
 * linux-glibc-2.28-x86_64
 * linux-glibc-2.28-x32
 * linux-glibc-2.28-armel
 * linux-glibc-2.28-armhf
 * linux-glibc-2.28-aarch64
-* generic-armel
 * linux-glibc-2.28-alpha
 * linux-glibc-2.28-m68k
 * linux-glibc-2.28-mips
@@ -60,7 +61,6 @@ https://hub.docker.com/r/mcandre/cartel
 * linux-glibc-2.28-s390x
 * linux-glibc-2.28-sh4
 * linux-glibc-2.28-sparc64
-* cloudabi-x86_64
 
 # SEE ALSO
 * [remy](https://github.com/mcandre/remy) generates Rust application ports based on these toolchain images
