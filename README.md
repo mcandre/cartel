@@ -38,7 +38,7 @@ cartel provides Docker images for convenient access to C/C++ compiler toolchains
 * linux-x86
 * linux-x86_64
 * linux-arm
-* cloudabi
+* cloudabi-x86_64
 
 # SEE ALSO
 * [remy](https://github.com/mcandre/remy) generates Rust application ports based on these toolchain images
