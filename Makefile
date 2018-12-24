@@ -66,10 +66,13 @@ test-linux-riscv64: cartel-linux-other
 test-linux-s390x: cartel-linux-other
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-other sh -c \"cd /src && mkdir -p bin && s390x-linux-gnu-gcc -o bin/hello hello.c\""
 
+test-linux-sparc64: cartel-linux-other
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-other sh -c \"cd /src && mkdir -p bin && sparc64-linux-gnu-gcc -o bin/hello hello.c\""
+
 test-cloudabi-x86_64: cartel-cloudabi example/cloudabi-stdout.yml
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:cloudabi sh -c \"cd /src && mkdir -p bin && x86_64-unknown-cloudabi-cc -o bin/hello hello.c && cloudabi-run -e bin/hello <cloudabi-stdout.yml\""
 
-test: test-linux-x86 test-linux-x86_64 test-linux-x32 test-linux-armel test-linux-armhf test-generic-armel test-linux-alpha test-linux-m68k test-linux-mips test-linux-mipsel test-linux-mips64 test-linux-mips64el test-linux-ppc test-linux-ppcspe test-linux-ppc64 test-linux-ppc64le test-linux-riscv64 test-linux-s390x test-cloudabi-x86_64
+test: test-linux-x86 test-linux-x86_64 test-linux-x32 test-linux-armel test-linux-armhf test-generic-armel test-linux-alpha test-linux-m68k test-linux-mips test-linux-mipsel test-linux-mips64 test-linux-mips64el test-linux-ppc test-linux-ppcspe test-linux-ppc64 test-linux-ppc64le test-linux-riscv64 test-linux-s390x test-linux-sparc64 test-cloudabi-x86_64
 
 publish-linux-x86_64: cartel-linux-x86_64
 	docker push mcandre/cartel:linux-x86_64
