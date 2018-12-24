@@ -21,8 +21,8 @@ test-linux-x86_64: cartel-linux-x86_64
 test-linux-arm: cartel-linux-arm
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-arm sh -c \"cd /src && mkdir -p bin && arm-linux-gnueabi-gcc -o bin/hello hello.c\""
 
-test-cloudabi: cartel-cloudabi
-	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:cloudabi sh -c \"cd /src && mkdir -p bin && x86_64-unknown-cloudabi-cc -o bin/hello hello.c && cloudabi-run bin/hello\""
+test-cloudabi: cartel-cloudabi example/cloudabi-stdout.yml
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:cloudabi sh -c \"cd /src && mkdir -p bin && x86_64-unknown-cloudabi-cc -o bin/hello hello.c && cloudabi-run -e bin/hello <cloudabi-stdout.yml\""
 
 test: test-linux-x86 test-linux-x86_64 test-linux-arm test-cloudabi
 
