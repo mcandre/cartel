@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int m(int stdout) {
-    dprintf(stdout, "Hello World!\n");
+int m(int out) {
+    dprintf(out, "Hello World!\n");
     return EXIT_SUCCESS;
 }
 
@@ -11,13 +11,13 @@ int m(int stdout) {
     #include <program.h>
 
     void program_main(const argdata_t *ad) {
-        int stdout;
-        argdata_get_fd(ad, &stdout);
+        int out;
+        argdata_get_fd(ad, &out);
 #else
     #include <unistd.h>
 
     void main() {
-        int stdout = STDOUT_FILENO;
+        int out = STDOUT_FILENO;
 #endif
-        exit(m(stdout));
+        exit(m(out));
     }

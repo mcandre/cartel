@@ -18,13 +18,22 @@ test-linux-x86: cartel-linux-x86
 test-linux-x86_64: cartel-linux-x86_64
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-x86_64 sh -c \"cd /src && mkdir -p bin && gcc -o bin/hello hello.c && ./bin/hello\""
 
-test-linux-arm: cartel-linux-arm
+test-linux-armel: cartel-linux-arm
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-arm sh -c \"cd /src && mkdir -p bin && arm-linux-gnueabi-gcc -o bin/hello hello.c\""
 
-test-cloudabi: cartel-cloudabi example/cloudabi-stdout.yml
+test-linux-armhf: cartel-linux-arm
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-arm sh -c \"cd /src && mkdir -p bin && arm-linux-gnueabihf-gcc -o bin/hello hello.c\""
+
+test-linux-aarch64: cartel-linux-arm
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-arm sh -c \"cd /src && mkdir -p bin && aarch64-linux-gnu-gcc -o bin/hello hello.c\""
+
+test-generic-armel: cartel-linux-arm
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-arm sh -c \"cd /src && mkdir -p bin && arm-none-eabi-gcc -o bin/hello -specs=nano.specs -specs=nosys.specs hello.c\""
+
+test-cloudabi-x86_64: cartel-cloudabi example/cloudabi-stdout.yml
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:cloudabi sh -c \"cd /src && mkdir -p bin && x86_64-unknown-cloudabi-cc -o bin/hello hello.c && cloudabi-run -e bin/hello <cloudabi-stdout.yml\""
 
-test: test-linux-x86 test-linux-x86_64 test-linux-arm test-cloudabi
+test: test-linux-x86 test-linux-x86_64 test-linux-armel test-linux-armhf test-generic-armel test-cloudabi-x86_64
 
 publish-linux-x86: cartel-linux-x86
 	docker push mcandre/cartel:linux-x86
