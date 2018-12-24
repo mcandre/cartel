@@ -9,6 +9,9 @@ cartel-linux-x86_64: linux-x86_64.Dockerfile
 cartel-linux-arm: linux-arm.Dockerfile
 	docker build -t mcandre/cartel:linux-arm -f linux-arm.Dockerfile .
 
+cartel-linux-alpha: linux-alpha.Dockerfile
+	docker build -t mcandre/cartel:linux-alpha -f linux-alpha.Dockerfile .
+
 cartel-cloudabi: cloudabi.Dockerfile setup-cloudabi.ubuntu.sh
 	docker build -t mcandre/cartel:cloudabi -f cloudabi.Dockerfile .
 
@@ -30,10 +33,13 @@ test-linux-aarch64: cartel-linux-arm
 test-generic-armel: cartel-linux-arm
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-arm sh -c \"cd /src && mkdir -p bin && arm-none-eabi-gcc -o bin/hello -specs=nano.specs -specs=nosys.specs hello.c\""
 
+test-linux-alpha: cartel-linux-alpha
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-alpha sh -c \"cd /src && mkdir -p bin && alpha-linux-gnu-gcc -o bin/hello hello.c\""
+
 test-cloudabi-x86_64: cartel-cloudabi example/cloudabi-stdout.yml
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:cloudabi sh -c \"cd /src && mkdir -p bin && x86_64-unknown-cloudabi-cc -o bin/hello hello.c && cloudabi-run -e bin/hello <cloudabi-stdout.yml\""
 
-test: test-linux-x86 test-linux-x86_64 test-linux-armel test-linux-armhf test-generic-armel test-cloudabi-x86_64
+test: test-linux-x86 test-linux-x86_64 test-linux-armel test-linux-armhf test-generic-armel test-linux-alpha test-cloudabi-x86_64
 
 publish-linux-x86: cartel-linux-x86
 	docker push mcandre/cartel:linux-x86
