@@ -18,6 +18,9 @@ cartel-linux-mips: linux-mips.Dockerfile
 cartel-linux-ppc: linux-ppc.Dockerfile
 	docker build -t mcandre/cartel:linux-ppc -f linux-ppc.Dockerfile .
 
+cartel-linux-s390x: linux-s390x.Dockerfile
+	docker build -t mcandre/cartel:linux-s390x -f linux-s390x.Dockerfile .
+
 cartel-cloudabi: cloudabi.Dockerfile setup-cloudabi.ubuntu.sh
 	docker build -t mcandre/cartel:cloudabi -f cloudabi.Dockerfile .
 
@@ -72,10 +75,13 @@ test-linux-ppc64: cartel-linux-ppc
 test-linux-ppc64le: cartel-linux-ppc
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-ppc sh -c \"cd /src && mkdir -p bin && powerpc64le-linux-gnu-gcc -o bin/hello hello.c\""
 
+test-linux-s390x: cartel-linux-s390x
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:linux-s390x sh -c \"cd /src && mkdir -p bin && s390x-linux-gnu-gcc -o bin/hello hello.c\""
+
 test-cloudabi-x86_64: cartel-cloudabi example/cloudabi-stdout.yml
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:cloudabi sh -c \"cd /src && mkdir -p bin && x86_64-unknown-cloudabi-cc -o bin/hello hello.c && cloudabi-run -e bin/hello <cloudabi-stdout.yml\""
 
-test: test-linux-x86 test-linux-x86_64 test-linux-x32 test-linux-armel test-linux-armhf test-generic-armel test-linux-alpha test-linux-m68k test-linux-mips test-linux-mipsel test-linux-mips64 test-linux-mips64el test-linux-ppc test-linux-ppcspe test-linux-ppc64 test-linux-ppc64le test-cloudabi-x86_64
+test: test-linux-x86 test-linux-x86_64 test-linux-x32 test-linux-armel test-linux-armhf test-generic-armel test-linux-alpha test-linux-m68k test-linux-mips test-linux-mipsel test-linux-mips64 test-linux-mips64el test-linux-ppc test-linux-ppcspe test-linux-ppc64 test-linux-ppc64le test-linux-s390x test-cloudabi-x86_64
 
 publish-linux-x86_64: cartel-linux-x86_64
 	docker push mcandre/cartel:linux-x86_64
@@ -95,10 +101,13 @@ publish-linux-mips: cartel-linux-mips
 publish-linux-ppc: cartel-linux-ppc
 	docker push mcandre/cartel:linux-ppc
 
+publish-linux-s390x: cartel-linux-s390x
+	docker push mcandre/cartel:linux-s390x
+
 publish-cloudabi: cartel-cloudabi
 	docker push mcandre/cartel:cloudabi
 
-publish: publish-linux-x86_64 publish-linux-arm publish-linux-alpha publish-linux-m68k publish-linux-mips publish-linux-ppc publish-cloudabi
+publish: publish-linux-x86_64 publish-linux-arm publish-linux-alpha publish-linux-m68k publish-linux-mips publish-linux-ppc publish-linux-s390x publish-cloudabi
 
 clean:
 	-rm -rf example/bin
