@@ -41,7 +41,6 @@ cartel provides Docker images for convenient access to C/C++ compiler toolchains
 * cloudabi
 
 # SEE ALSO
-* [CloudABI](https://nuxi.nl/) provides a C-level abstraction for applications to run on many different platforms.
 * [remy](https://github.com/mcandre/remy) generates Rust application ports based on these toolchain images
 * [goxcart](https://github.com/mcandre/goxcart) generates Go application ports based on the standard Go toolchain
 * [tonixxx](https://github.com/mcandre/tonixxx) provides a more heavyweight solution using virtual machines
