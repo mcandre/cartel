@@ -47,6 +47,10 @@ cartel provides Docker images for convenient access to C/C++ compiler toolchains
 * linux-mipsel
 * linux-mips64
 * linux-mips64el
+* linux-ppc
+* linux-ppcspe
+* linux-ppc64
+* linux-ppc64le
 * cloudabi-x86_64
 
 # SEE ALSO
