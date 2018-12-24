@@ -56,6 +56,7 @@ https://hub.docker.com/r/mcandre/cartel
 * linux-ppcspe
 * linux-ppc64
 * linux-ppc64le
+* linux-riscv64
 * linux-s390x
 * cloudabi-x86_64
 
