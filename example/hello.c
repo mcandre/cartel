@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int m(int out) {
-    dprintf(out, "Hello World!\n");
+int m(int console_out) {
+    dprintf(console_out, "Hello World!\n");
     return EXIT_SUCCESS;
 }
 
@@ -12,7 +12,7 @@ int m(int out) {
     #include <string.h>
 
     void program_main(const argdata_t *ad) {
-        int out;
+        int console_out;
         argdata_map_iterator_t ad_iter;
         const argdata_t *key_ad, *value_ad;
         const char *key;
@@ -21,8 +21,8 @@ int m(int out) {
 
         while (argdata_map_get(&ad_iter, &key_ad, &value_ad)) {
             if (argdata_get_str_c(key_ad, &key) == 0) {
-                if (strcmp(key, "console") == 0) {
-                    argdata_get_fd(value_ad, &out);
+                if (strcmp(key, "console_out") == 0) {
+                    argdata_get_fd(value_ad, &console_out);
                 }
             }
 
@@ -32,7 +32,7 @@ int m(int out) {
     #include <unistd.h>
 
     void main() {
-        int out = STDOUT_FILENO;
+        int console_out = STDOUT_FILENO;
 #endif
-        exit(m(out));
+        exit(m(console_out));
     }
