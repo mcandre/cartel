@@ -100,7 +100,9 @@ EOF
 
 apt-get update
 
-apt-get install -y x86-64-unknown-cloudabi-cxx-runtime
+apt-get install -y \
+    x86-64-unknown-cloudabi-c-runtime \
+    x86-64-unknown-cloudabi-cxx-runtime
 
 for target in \
     aarch64-unknown-cloudabi \
@@ -150,7 +152,7 @@ rm -rf flower
 
 git clone 'https://github.com/NuxiNL/cloudabi-utils.git'
 
-sh -c 'cd cloudabi-utils && cmake . && make && make install'
+sh -c 'cd cloudabi-utils && git checkout -b ab2ad7a78756beefaf89329fff9355a5f3470159 ab2ad7a78756beefaf89329fff9355a5f3470159 && cmake . && make && make install'
 
 rm -rf cloudabi-utils
 
