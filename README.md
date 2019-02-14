@@ -62,6 +62,7 @@ https://hub.docker.com/r/mcandre/cartel
 * linux-glibc-2.28-sh4
 * linux-glibc-2.28-sparc64
 * linux-musl-x86_64
+* wasm64
 
 # SEE ALSO
 * [remy](https://github.com/mcandre/remy) generates Rust application ports based on these toolchain images

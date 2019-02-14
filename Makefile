@@ -12,6 +12,9 @@ cartel-alpine-x86_64: alpine-x86_64.Dockerfile
 cartel-cloudabi: cloudabi.Dockerfile setup-cloudabi.debian.sh
 	docker build -t mcandre/cartel:cloudabi -f cloudabi.Dockerfile .
 
+cartel-wasm64: wasm64.Dockerfile
+	docker build -t mcandre/cartel:wasm64 -f wasm64.Dockerfile .
+
 test-debian-x86: cartel-debian-x86_64 example/hello.c
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:debian-x86_64 sh -c \"cd /src && mkdir -p bin && gcc -m32 -o bin/hello hello.c && ./bin/hello\""
 
@@ -81,7 +84,10 @@ test-alpine-x86_64: cartel-alpine-x86_64 example/hello.c
 test-cloudabi-x86_64: cartel-cloudabi example/hello.c example/cloudabi.yml
 	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:cloudabi sh -c \"cd /src && mkdir -p bin && x86_64-unknown-cloudabi-cc -o bin/hello hello.c && cloudabi-run -e bin/hello <cloudabi.yml\""
 
-test: test-debian-x86 test-debian-x86_64 test-debian-x32 test-debian-armel test-debian-armhf test-generic-armel test-debian-alpha test-debian-m68k test-debian-mips test-debian-mipsel test-debian-mips64 test-debian-mips64el test-debian-ppc test-debian-ppcspe test-debian-ppc64 test-debian-ppc64le test-debian-riscv64 test-debian-s390x test-debian-sparc64 test-alpine-x86_64 test-cloudabi-x86_64
+test-wasm64: cartel-wasm64 example/hello.c
+	sh -c "cd example && docker run --rm -v \"\$$(pwd):/src\" mcandre/cartel:wasm64 bash -c \"cd /src && mkdir -p bin && . /emsdk/emsdk_env.sh && emcc -s WASM=1 -o bin/hello.wasm hello.c\""
+
+test: test-debian-x86 test-debian-x86_64 test-debian-x32 test-debian-armel test-debian-armhf test-generic-armel test-debian-alpha test-debian-m68k test-debian-mips test-debian-mipsel test-debian-mips64 test-debian-mips64el test-debian-ppc test-debian-ppcspe test-debian-ppc64 test-debian-ppc64le test-debian-riscv64 test-debian-s390x test-debian-sparc64 test-alpine-x86_64 test-cloudabi-x86_64 test-wasm64
 
 publish-debian-x86_64: cartel-debian-x86_64
 	docker push mcandre/cartel:debian-x86_64
@@ -95,7 +101,10 @@ publish-alpine-x86_64: cartel-alpine-x86_64
 publish-cloudabi: cartel-cloudabi
 	docker push mcandre/cartel:cloudabi
 
-publish: publish-debian-x86_64 publish-debian-other publish-alpine-x86_64 publish-cloudabi
+publish-wasm64: cartel-wasm64
+	docker push mcandre/cartel:wasm64
+
+publish: publish-debian-x86_64 publish-debian-other publish-alpine-x86_64 publish-cloudabi publish-wasm64
 
 clean:
 	-rm -rf example/bin

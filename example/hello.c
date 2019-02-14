@@ -28,11 +28,13 @@ int m(int console_out) {
 
             argdata_map_next(&ad_iter);
         }
+
+        exit(m(console_out));
+    }
 #else
     #include <unistd.h>
 
-    void main() {
-        int console_out = STDOUT_FILENO;
-#endif
-        exit(m(console_out));
+    int main() {
+        return m(STDOUT_FILENO);
     }
+#endif
