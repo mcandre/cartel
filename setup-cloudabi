@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eEuo pipefail
+IFS=$'\n\t '
 
 CLANG_VERSION='6.0'
 

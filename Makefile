@@ -9,7 +9,7 @@ cartel-debian-other: debian-other.Dockerfile
 cartel-alpine-x86_64: alpine-x86_64.Dockerfile
 	docker build -t mcandre/cartel:alpine-x86_64 -f alpine-x86_64.Dockerfile .
 
-cartel-cloudabi: cloudabi.Dockerfile setup-cloudabi.debian.sh
+cartel-cloudabi: cloudabi.Dockerfile setup-cloudabi
 	docker build -t mcandre/cartel:cloudabi -f cloudabi.Dockerfile .
 
 cartel-wasm64: wasm64.Dockerfile
