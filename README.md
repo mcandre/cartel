@@ -70,4 +70,3 @@ https://hub.docker.com/r/mcandre/cartel
 * [remy](https://github.com/mcandre/remy) generates Rust application ports based on these toolchain images
 * [goxcart](https://github.com/mcandre/goxcart) generates Go application ports based on the standard Go toolchain
 * [tonixxx](https://github.com/mcandre/tonixxx) provides a more flexible solution for building and testing binaries in many environments in addition to the typical Linux kernel
-* [Zig](https://ziglang.org/), a C compatible cross-compiling programming language
